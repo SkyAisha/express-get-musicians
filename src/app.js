@@ -27,4 +27,24 @@ app.get("/musicians/:id", async (req, res) => {
   const musician = await Musician.findByPk(id);
   res.json(musician);
 });
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.post("/musicians", async (req, res) => {
+  const newMusician = await Musician.create(req.body);
+  res.send("new Musician created");
+});
+
+app.put("/musicians/:id", async (req, res) => {
+  const updatedMusician = await Musician.update(req.body, {
+    where: { id: req.params.id },
+  });
+  res.send("Musician has been updated");
+});
+
+app.delete("/musicians/:id", async (req, res) => {
+  await Musician.destroy({ where: { id: req.params.id } });
+  res.send("Musician has been deleted");
+});
 module.exports = app;

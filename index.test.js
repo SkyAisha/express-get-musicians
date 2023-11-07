@@ -22,6 +22,34 @@ describe("./musicians endpoint", () => {
     expect(response.statusCode).toBe(200);
     expect(typeof response.body).toEqual("object");
   });
+
+  it("POST should create new musician", async () => {
+    const newMusician = {
+      name: "John Smith",
+      instrument: "Guitar",
+    };
+    const response = await request(app).post("/musicians").send(newMusician);
+    expect(response.statusCode).toBe(200);
+    expect(typeof response.body).toEqual("object");
+  });
+
+  it("PUT should update musician", async () => {
+    const updatedMusician = {
+      name: "William Jones",
+      instrument: "Voice",
+    };
+    const response = await request(app)
+      .put("/musicians/1")
+      .send(updatedMusician);
+    expect(response.statusCode).toBe(200);
+    expect(typeof response.body).toEqual("object");
+  });
+
+  it("DELETE should delete existing musician", async () => {
+    const response = await request(app).delete("/musicians/1");
+    expect(response.statusCode).toBe(200);
+    expect(typeof response.body).toEqual("object");
+  });
 });
 
 describe("./bands endpoint", () => {
