@@ -5,6 +5,4 @@ const port = 3000;
 app.listen(port, () => {
   db.sync();
   console.log(`Listening at http://localhost:${port}/musicians`);
-  console.log(`Listening at http://localhost:${port}/bands`);
-  console.log(`Listening at http://localhost:${port}/musicians/1`);
 });
