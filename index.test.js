@@ -33,6 +33,29 @@ describe("./musicians endpoint", () => {
     expect(typeof response.body).toEqual("object");
   });
 
+  it("Should return error if name field is empty", async () => {
+    const musician = {
+      name: "",
+      instrument: "Piano",
+    };
+    const response = await request(app).post("/musicians").send(musician);
+    expect(Array.isArray(response.body.error)).toBe(true);
+  });
+
+  it("Should return error if instrument field is empty", async () => {
+    const musician = {
+      name: "Jessica Walsh",
+      instrument: "",
+    };
+    const response = await request(app).post("/musicians").send(musician);
+    expect(Array.isArray(response.body.error)).toBe(true);
+  });
+  it("Should return error if all fields are empty", async () => {
+    const musician = {};
+    const response = await request(app).post("/musicians").send(musician);
+    expect(Array.isArray(response.body.error)).toBe(true);
+  });
+
   it("PUT should update musician", async () => {
     const updatedMusician = {
       name: "William Jones",
